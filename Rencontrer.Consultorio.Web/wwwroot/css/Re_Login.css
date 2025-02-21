@@ -1,0 +1,163 @@
+﻿body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+}
+
+.login-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+    button:hover {
+        background-color: #4cae4c;
+    }
+
+.login_form_header_desc {
+    margin-top: 0.5rem;
+    font-size: 0.7rem;
+}
+
+.button_input_olho {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+    .button_input_olho:hover {
+        opacity: 0.5;
+    }
+
+button_input_olho:active {
+    opacity: 1;
+}
+
+button_input_olho:focus {
+    outline: none;
+}
+
+.container_senha {
+    position: relative;
+    width: 100%;
+}
+
+
+
+
+
+.login_formulario {
+    background-color: #E1E1E1;
+    background-image: url(/assets/imgs_lupeon/lupeonback.png);
+    background-size: 56%;
+    height: 25rem;
+    background-position-x: 100%;
+    background-repeat: no-repeat;
+    opacity: 1;
+    border-radius: 6px;
+    min-width: 20rem;
+    max-width: 82%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1%;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    margin-left: 14rem
+}
+
+.login_formulario_header {
+    width: 100%;
+    color: var(--azul-primary);
+}
+
+
+.login_form_header1 {
+    width: 100%;
+    text-align: center;
+}
+
+.tt_login {
+    margin: 2.5rem 0rem;
+    width: 100%;
+    text-align: center;
+}
+
+    .tt_login h2 {
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+
+.container_inputs {
+    border: 0.1rem solid var(--gray-3);
+    border-radius: 4px;
+    padding: 0.4rem 0.5rem 0.1rem 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    line-height: 4px;
+}
+.inputs_login {
+    background: none;
+    padding: 0.25rem 0.3rem;
+    border: none;
+    font-size: 0.65rem;
+    width: 93%;
+    font-size: 0.567rem;
+    outline: 0;
+    margin-top: 0.3rem
+}
+
+    /* Cor de fundo do autocomplete */
+    .inputs_login:-webkit-autofill {
+        -webkit-box-shadow: 0 0 0 30px #E1E1E1 inset;
+    }
+
+    /* Cor do texto do autocomplete */
+    .inputs_login:-webkit-autofill {
+        -webkit-text-fill-color: black !important;
+    }
+
+
+.container_fotos_input {
+    margin-right: 0.5rem;
+}

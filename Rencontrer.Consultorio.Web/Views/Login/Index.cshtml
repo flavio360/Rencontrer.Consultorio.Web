@@ -1,0 +1,79 @@
+﻿@using Rencontrer.Consultorio.Web.Domain.Entities;
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "Login.cshtml";
+}
+
+@model LoginRequestViewModel
+
+<script src="~/js/Login.js"></script>
+<link rel="stylesheet" href="/css/Re_Login.css">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela de Login</title>
+
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form asp-route="" class="login_formulario">
+            <header class="login_formulario_header">
+                <div class="login_form_header1">
+                    @*<img src="~/assets/imgs_lupeon/logo_lupeon.png" width="60%" alt="Logo Lupeon TMS As a Service" />*@
+                    <p class="login_form_header_desc">Gestão de Pacientes <b>muito além da sua vocação</b></p>
+                </div>
+                <div class="tt_login">
+                    <h2>Log In</h2>
+                </div>
+            </header>
+
+            <main>
+                <div class="container_inputs">
+  
+
+                    <div>
+                        <strong>Seu usuário</strong>
+                        <input class="inputs_login" placeholder="Digite seu usuário" asp-for="username" autofocus required autocomplete="off">
+                    </div>
+
+                </div>
+                <div class="container_inputs">
+                    <div class="container_fotos_input">
+                        <img src="../../../assets/icones/cadeado.png" alt="Cadeado" style="width:12px;" />
+                    </div>
+
+                    <div class="container_senha">
+                        <strong>Sua senha</strong>
+                        <input type="password" class="inputs_login input_senha" placeholder="Digite sua senha" asp-for="password" autocomplete="off">
+
+                        <div class="input-image-olho">
+                            <button class="button_input_olho" type="button">
+                                <img class="eyesClosed " onclick="alterarInput('closed')" src="../../../assets/icones/olhofechado.png" alt="Olhos" style="width:12px;" />
+                                <img class="eyesOpen ocultar" onclick="alterarInput('open')" src="../../../assets/icones/olhoaberto.png" alt="Olhos" style="width:12px;" />
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+                <div style="display: flex; gap: 2rem;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+                        <label class="form-check-label" for="flexCheckChecked" style="font-size: 0.686rem; color:#515251; font-weight: 600 ">
+                            Manter Logado
+                        </label>
+                    </div>
+
+                </div>
+
+            </main>
+
+            <footer>
+                <button class="btn_login_entrar" name="button" value="login" onclick="autenticar()">entrar</button>
+            </footer>
+        </form>
+    </div>
+</body>
+</html>
