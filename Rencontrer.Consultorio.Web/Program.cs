@@ -20,6 +20,7 @@ var app = builder.Build();
 #region CultureInfo
 //builder.Services.Configure<RequestLocalizationOptions>(options =>
 //{
+
 //    var supportedCultures = new List<CultureInfo> {
 //                    new CultureInfo("pt-BR")
 //                };
@@ -27,6 +28,8 @@ var app = builder.Build();
 //    options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
 //    options.SupportedCultures = supportedCultures;
 //    options.SupportedUICultures = supportedCultures;
+
+
 //});
 #endregion
 
@@ -42,8 +45,8 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Error");
     app.UseHsts();
 }
-app.UseAuthentication(); // Habilita a autenticação
-app.UseAuthorization();  // Habilita a autorização
+app.UseAuthentication(); // Habilita a autenticaÃ§Ã£o
+app.UseAuthorization();  // Habilita a autorizaÃ§Ã£o
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
