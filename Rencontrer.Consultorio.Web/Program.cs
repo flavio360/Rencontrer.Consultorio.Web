@@ -20,13 +20,16 @@ var app = builder.Build();
 #region CultureInfo
 //builder.Services.Configure<RequestLocalizationOptions>(options =>
 //{
- //   var supportedCultures = new List<CultureInfo> {
- //                   new CultureInfo("pt-BR")
- //               };
-//
- //   options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
- //   options.SupportedCultures = supportedCultures;
-  //  options.SupportedUICultures = supportedCultures;
+
+//    var supportedCultures = new List<CultureInfo> {
+//                    new CultureInfo("pt-BR")
+//                };
+
+//    options.DefaultRequestCulture = new RequestCulture(culture: "pt-BR", uiCulture: "pt-BR");
+//    options.SupportedCultures = supportedCultures;
+//    options.SupportedUICultures = supportedCultures;
+
+
 //});
 #endregion
 
