@@ -39,8 +39,8 @@ function autenticar() {
 
     // Criando o objeto de dados
     var dadosLogin = {
-        user: username,
-        password: password
+        Email: username,
+        Senha: password
     };
 
     // Enviando os dados via POST

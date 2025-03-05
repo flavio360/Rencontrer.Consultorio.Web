@@ -7,7 +7,7 @@ namespace Rencontrer.Consultorio.Web.Data.Service
     public class LoginService : ILoginService
     {
         private readonly HttpClient _client;
-        public const string BasePath = "api/Security/authenticate";
+        public const string BasePath = "api/Security/";
 
         // Construtor necessário para o AddHttpClient funcionar
         public LoginService(HttpClient httpClient)
@@ -17,9 +17,19 @@ namespace Rencontrer.Consultorio.Web.Data.Service
 
 
 
-        public Task<LoginResponseViewModel> LoginAutenticacao(LoginRequest loginData)
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public async Task<LoginResponseViewModel> LoginAutenticacao(LoginRequest loginData)
+		{
+			var response = await _client.PostAsJsonAsync("api/authenticate", loginData);
+
+			if (response.IsSuccessStatusCode)
+			{
+				return await response.Content.ReadFromJsonAsync<LoginResponseViewModel>();
+			}
+			else
+			{
+				return null; // Retorne null se a autenticação falhar
+			}
+		}
+
+	}
 }
