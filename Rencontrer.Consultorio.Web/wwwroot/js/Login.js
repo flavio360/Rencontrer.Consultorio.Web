@@ -16,20 +16,15 @@
 });
 
 function autenticar() {
-    console.log("Iniciando autenticação...");
 
     var button = document.getElementById("btnLogin");
     button.innerHTML = 'Acessando...';
     button.classList.add('neon-pulse');
 
-    // Obtendo os dados diretamente do formulário
     var formData = new FormData(document.getElementById("frmPost"));
-    var username = formData.get("username"); // Use o ID correto do input
+    var username = formData.get("username"); 
     var password = formData.get("password");
 
-    console.log(username, password);
-
-    // Verificação dos campos
     if (!username || !password) {
         alert("Por favor, preencha todos os campos!");
         button.innerHTML = 'Entrar';
@@ -37,7 +32,6 @@ function autenticar() {
         return;
     }
 
-    // Criando o objeto de dados
     var dadosLogin = {
         Email: username,
         Senha: password
@@ -50,18 +44,17 @@ function autenticar() {
         contentType: "application/json",
         data: JSON.stringify(dadosLogin),
         beforeSend: function () {
-            console.log("Enviando dados...");
         },
         success: function (data) {
             console.log("Resposta recebida:", data);
             if (data.status === "success") {
-                window.location.href = '/CustosExtra/Aprovacoes';
+                window.location.href = '/Home/Index';
             } else {
                 alert("Erro ao autenticar: " + data.message);
             }
         },
         error: function (xhr) {
-            console.error("Erro ao enviar a requisição", xhr);
+            console.error("Usuário ou Senha errados", xhr);
         },
         complete: function () {
             button.innerHTML = 'Entrar';

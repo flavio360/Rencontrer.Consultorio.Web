@@ -5,6 +5,6 @@ namespace Rencontrer.Consultorio.Web.Data.Interface
 {
     public interface ILoginService
     {
-        Task<LoginResponseViewModel> LoginAutenticacao(LoginRequest loginData);
+        Task<LoginRequestModel> LoginAutenticacao(LoginRequestModel loginData);
     }
 }

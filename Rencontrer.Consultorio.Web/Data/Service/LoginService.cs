@@ -17,13 +17,13 @@ namespace Rencontrer.Consultorio.Web.Data.Service
 
 
 
-		public async Task<LoginResponseViewModel> LoginAutenticacao(LoginRequest loginData)
+		public async Task<LoginRequestModel> LoginAutenticacao(LoginRequestModel loginData)
 		{
-			var response = await _client.PostAsJsonAsync("api/authenticate", loginData);
+			var response = await _client.PostAsJsonAsync("api/login/authenticate", loginData);
 
 			if (response.IsSuccessStatusCode)
 			{
-				return await response.Content.ReadFromJsonAsync<LoginResponseViewModel>();
+				return await response.Content.ReadFromJsonAsync<LoginRequestModel>();
 			}
 			else
 			{

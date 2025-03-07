@@ -1,0 +1,72 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+
+<body>
+    <main class="h-100 bg-light sidebar" style="position:fixed; left:0px; top:0px; width: 4.25rem; border-end-end-radius: 16px!important; z-index: 99999!important; box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.08)!important">
+        <div class="h-100 d-flex flex-column flex-shrink-0 bg-light " style="width: 4.25rem; position:relative; align-items: center; border-end-end-radius: 16px ;  z-index: 99999!important; ">
+            <a href="/Home" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
+                <img src="~/assets/imgs_lupeon/logo_mobile.png" width="30px" />
+            </a>
+            <ul class="nav nav-pills nav-flush flex-column text-center">
+                <li style="display:flex; flex-direction:column; line-height:5px; width: 4.25rem;">
+
+                    <a href="/Home" class="nav-link mt-5 btn_aside" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="center">
+                        <img src="~/assets/icones/home.png" width="30px" />
+                        <label class="text-center" style="font-size:0.5rem; color: #0e406e;"><b>Home</b></label>
+                    </a>
+                </li>
+                <li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem; width: 4.25rem;">
+                    <span class="nav-link mt-4  btn_aside " style="cursor:pointer;" title="Pacientes" onclick="abrirSidebar('atendimento');" id="atendimentoSpan">
+                        <img src="~/assets/icones/iconAtendimento.png" width="30px" />
+                        <label class="text-center" style="font-family: Montserrat;font-size: 8px; font-weight: 400; line-height: 10.75px; text-align: center;color:#0e406e;margin-left:-10px;"><b>Atendimento</b></label>
+                    </span>
+                </li>
+              
+                <li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+                    <span class="nav-link mt-4 btn_aside" style="cursor:pointer;" title="reports" onclick="abrirSidebar('reports');" id="reportsSpan">
+                        <img src="~/assets/icones/report.png" width="30px" />
+                        <label class="text-center" style="font-size:0.5rem; color:#0e406e; "><b>Reports</b></label>
+                    </span>
+                </li>
+
+            </ul>
+
+
+           
+                <div class="dropdown d-flex flex-column justify-content-center align-items-center gap-4 w-100 " style="position:absolute; bottom:1.5rem; margin-left: 0.33rem">
+                
+                @if (true)
+                {
+                    <a href="~/Configuracoes" style="border: none; background-color: #f8f9fa;"> <img src="~/assets/icones/Config.png" width="22px" /> </a>
+                }
+
+                <a href="#" class="d-flex align-items-center justify-content-center p-2 link-dark text-decoration-none LP_DS_sidebar_circle_name " id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+
+                    </a>
+                    <ul class="dropdown-menu  text-small z-index-1" aria-labelledby="dropdownUser3">
+                        <div class="micro_header" style="background-color:#ededed; margin-top: -1rem; height: 1.75rem;">
+                            <h5 style="font-size: 0.75rem; padding-left: 0.6rem; cursor: default;">Empresa:  <br /></h5>
+                        </div>
+                        <div class="micro_header" style="background-color:#ededed; margin-top: -1rem; height: 1.75rem;">
+                            <h5 style="font-size: 0.75rem; padding-left: 0.6rem; cursor: default;">
+                          
+                            </h5>
+                        </div>
+                    @if (true)
+                         {
+                            <li><a class="dropdown-item" href="~/MinhaEquipe">Gerenciar Equipe</a></li>
+                            <div class="LP_M_border_fullwidth_default" style="margin:0.5rem 0rem; margin-top: -0.01rem"></div>
+                            <li><a class="dropdown-item" href="~/Transportadores">Ver suas Transportadoras</a></li>
+                         }
+
+                        <div class="LP_M_border_fullwidth_default" style="margin-left: 1rem;"></div>
+                        <li><a class="dropdown-item" href="~/Logout">Sair</a></li>
+                    </ul>
+                </div>
+        </div>
+    </main>
+</body>

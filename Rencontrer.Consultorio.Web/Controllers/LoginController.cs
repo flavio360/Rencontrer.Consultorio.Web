@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Rencontrer.Consultorio.Web.Data.Interface;
+using Rencontrer.Consultorio.Web.Models;
 using System.Security.Claims;
 
 namespace Rencontrer.Consultorio.Web.Controllers
@@ -11,7 +12,7 @@ namespace Rencontrer.Consultorio.Web.Controllers
     {
         private readonly ILoginService _Service;
         private readonly IMemoryCache _memoryCache;
-        private  int cacheTime = 0;
+        private  int cacheTime = 10;
         public LoginController(ILoginService service, IMemoryCache memoryCache)
         {
             _Service = service;
@@ -25,7 +26,7 @@ namespace Rencontrer.Consultorio.Web.Controllers
         [HttpPost]
         [AllowAnonymous]
         [Route("Login/Autenticar")]
-        public async Task<IActionResult> Autenticar([FromBody] LoginRequest loginData)
+        public async Task<IActionResult> Autenticar([FromBody] LoginRequestModel loginData)
         {
             try
             {
@@ -35,11 +36,11 @@ namespace Rencontrer.Consultorio.Web.Controllers
                 {
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.NameIdentifier, autenticade.usuarioId.ToString()),
-                        new Claim(ClaimTypes.Name, autenticade.nome),
-                        new Claim("Token", autenticade.token),
-                        new Claim("TipoAcesso", autenticade.tipoAcesso),
-                        new Claim("EmpresaId", autenticade.empresaId.ToString())
+                        new Claim(ClaimTypes.NameIdentifier, autenticade.IdUsuario.ToString()),
+                        new Claim(ClaimTypes.Name, autenticade.Nome),
+                        new Claim("Token", autenticade.Email),
+                        new Claim("TipoAcesso", autenticade.Empresa),
+                        new Claim("EmpresaId", autenticade.Empresa)
                     };
 
                     // Criando a identidade e o principal
@@ -53,23 +54,13 @@ namespace Rencontrer.Consultorio.Web.Controllers
                         ExpiresUtc = DateTime.UtcNow.AddMinutes(30) // Duração do cookie
                     });
 
-                    if (autenticade.tipoAcesso =="P")
-                    {
-                        cacheTime = 10;
-                    }
-                    else if (autenticade.tipoAcesso == "PA") 
-                    {
-                        cacheTime = 30;
-                    }
-                    else
-                    {
-                        cacheTime = 30;
-                    }
-
-                    var cacheKey = "Login" + (HttpContext.User.Identity.Name?.Replace(" ", "_") ?? "");
+                   
+                        
+                    var cacheKey = "Login_" + (HttpContext.User.Identity.Name?.Replace(" ", "_") ?? "");
 
                     _memoryCache.Set(cacheKey, autenticade, new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromMinutes(cacheTime)));
 
+                     
 					return Json(new { status = "success", msg = "", urlRedirect = "Home" });
                 }
                 else
@@ -82,19 +73,5 @@ namespace Rencontrer.Consultorio.Web.Controllers
                 return Json(new { status = "error", msg = $"Erro ao autenticar: {ex.Message}", urlRedirect = "Index" });
             }
         }
-
-        // Classe auxiliar para receber dados
-        public class LoginRequest
-        {
-			public int IdUsuario { get; set; }
-			public string Nome { get; set; }
-			public string Email { get; set; }
-			public string Empresa { get; set; }
-			public string Senha { get; set; }
-			public DateTime DataCriacao { get; set; }
-			public DateTime? DataAlteracao { get; set; }
-			public bool Status { get; set; }
-		}
-
     }
 }
