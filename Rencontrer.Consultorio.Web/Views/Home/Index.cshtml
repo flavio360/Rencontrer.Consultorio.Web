@@ -1,72 +1,264 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using System.Security.Claims;
+
 @{
+	var isAuthenticated = User.Identity.IsAuthenticated;
+
+	string userId = null;
+	string nome = null;
+	string token = null;
+	string tipoAcesso = null;
+	string empresaId = null;
+
+	if (isAuthenticated)
+	{
+		// Acessando as claims
+		userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+		nome = User.FindFirst(ClaimTypes.Name)?.Value;
+		token = User.FindFirst("Token")?.Value;
+		tipoAcesso = User.FindFirst("TipoAcesso")?.Value;
+		empresaId = User.FindFirst("EmpresaId")?.Value;
+	}
 }
-
-
 <body>
-    <main class="h-100 bg-light sidebar" style="position:fixed; left:0px; top:0px; width: 4.25rem; border-end-end-radius: 16px!important; z-index: 99999!important; box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.08)!important">
-        <div class="h-100 d-flex flex-column flex-shrink-0 bg-light " style="width: 4.25rem; position:relative; align-items: center; border-end-end-radius: 16px ;  z-index: 99999!important; ">
-            <a href="/Home" class="d-block p-3 link-dark text-decoration-none" title="Icon-only" data-bs-toggle="tooltip" data-bs-placement="right">
-                <img src="~/assets/imgs_lupeon/logo_mobile.png" width="30px" />
-            </a>
-            <ul class="nav nav-pills nav-flush flex-column text-center">
-                <li style="display:flex; flex-direction:column; line-height:5px; width: 4.25rem;">
+	<main class="h-100 bg-light sidebar" style="position:fixed; left:0px; top:0px; width: 4.25rem; border-end-end-radius: 16px!important; z-index: 99999!important; box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.08)!important">
+		<div class="h-100 d-flex flex-column flex-shrink-0 bg-light " style="width: 4.25rem; position:relative; align-items: center; border-end-end-radius: 16px ;  z-index: 99999!important;">
+			<a href="/Home" class="d-block p-3 link-dark text-decoration-none" title="" data-bs-toggle="tooltip" data-bs-placement="right">
+				<img src="~/assets/icones/rencontrer_ico.png" width="50px" />
+			</a>
+			<ul class="nav nav-pills nav-flush flex-column text-center">
 
-                    <a href="/Home" class="nav-link mt-5 btn_aside" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="center">
-                        <img src="~/assets/icones/home.png" width="30px" />
-                        <label class="text-center" style="font-size:0.5rem; color: #0e406e;"><b>Home</b></label>
-                    </a>
-                </li>
-                <li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem; width: 4.25rem;">
-                    <span class="nav-link mt-4  btn_aside " style="cursor:pointer;" title="Pacientes" onclick="abrirSidebar('atendimento');" id="atendimentoSpan">
-                        <img src="~/assets/icones/iconAtendimento.png" width="30px" />
-                        <label class="text-center" style="font-family: Montserrat;font-size: 8px; font-weight: 400; line-height: 10.75px; text-align: center;color:#0e406e;margin-left:-10px;"><b>Atendimento</b></label>
-                    </span>
-                </li>
-              
-                <li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
-                    <span class="nav-link mt-4 btn_aside" style="cursor:pointer;" title="reports" onclick="abrirSidebar('reports');" id="reportsSpan">
-                        <img src="~/assets/icones/report.png" width="30px" />
-                        <label class="text-center" style="font-size:0.5rem; color:#0e406e; "><b>Reports</b></label>
-                    </span>
-                </li>
+				<li style="display:flex; flex-direction:column; line-height:5px; width: 4.25rem;">
+					<a href="/Home" class="nav-link mt-5 btn_aside Re_Menu_Home" aria-current="page" title="Home" data-bs-toggle="tooltip" data-bs-placement="center">
+						<img src="~/assets/icones/Home.png" width="40px" />
+						<label class="text-center" style="font-size:0.5rem; color: #0e406e;"><b>Home</b></label>
+					</a>
+				</li>
 
-            </ul>
+				@if (tipoAcesso == ((int)Rencontrer.Consultorio.Web.Models.Enums.Enums.TipoUsuario.Administrador).ToString() ||
+						tipoAcesso == ((int)Rencontrer.Consultorio.Web.Models.Enums.Enums.TipoUsuario.Empresa).ToString())
+				{
+					<li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+						<span class="nav-link mt-4 btn_aside Re_Menu_Home" style="cursor:pointer;" title="Gestão de Pacientes" onclick="abrirModal('sidebarPacienteControl');">
+							<img src="~/assets/icones/paciente.png" width="40px" />
+							<label class="text-center" style="font-size:0.5rem; color:#0e406e;"><b>Gestão de Pacientes</b></label>
+						</span>
+					</li>
+
+					<li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+						<span class="nav-link mt-4 btn_aside Re_Menu_Home" style="cursor:pointer;" title="Gestão Financeira" onclick="abrirModal('sidebarGestaoFinanceira');">
+							<img src="~/assets/icones/transacao.png" width="40px" />
+							<label class="text-center" style="font-size:0.5rem; color:#0e406e;"><b>Gestão Financeira</b></label>
+						</span>
+					</li>
+				}
+
+				@if (tipoAcesso == ((int)Rencontrer.Consultorio.Web.Models.Enums.Enums.TipoUsuario.Administrador).ToString() ||
+						tipoAcesso == ((int)Rencontrer.Consultorio.Web.Models.Enums.Enums.TipoUsuario.Paciente).ToString())
+				{
+					<li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+						<span class="nav-link mt-4 btn_aside Re_Menu_Home" style="cursor:pointer;" title="Portal do Paciente" onclick="abrirModal('sidebarPacientePortal');">
+							<img src="~/assets/icones/agenda.png" width="40px" />
+							<label class="text-center" style="font-size:0.5rem; color:#0e406e;"><b>Portal Paciente</b></label>
+						</span>
+					</li>
+				}
+			</ul>
+
+			<div class="dropdown d-flex flex-column justify-content-center align-items-center gap-4 w-100" style="position:absolute; bottom:1.5rem; margin-left: 0.33rem">
+				<li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+					<span class="nav-link mt-4 btn_aside Re_Menu_Home" style="cursor:pointer;" title="Configurações" onclick="abrirModal('sidebarConfiguracoes');">
+						<a href="~/Configuracoes" class="Re_Menu_Home" style="border: none; background-color: #f8f9fa;">
+							<img src="~/assets/icones/definicoes.png" width="30px" />
+						</a>
+					</span>
+				</li>
+
+				<li style="display:flex; flex-direction:column; line-height:5px; margin-top: -1rem;">
+					<span class="nav-link mt-4 btn_aside Re_Menu_Home" style="cursor:pointer;" title="Sair do sistema" onclick="openModal();">
+						<img src="~/assets/icones/sair.png" width="30px" />
+					</span>
+				</li>
+			</div>
+		</div>
+	</main>
+
+	@* --------------------------------------------------- *@
+	@* ---------------### MODAL ### ------------------- *@
+	@* --------------------------------------------------- *@
+
+	<div id="logoutModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5); z-index:1000;">
+		<div style="background:#fff; margin:15% auto; padding:20px; width:300px; border-radius:5px; text-align:center;">
+			<h4>Deseja encerrar a sessão?</h4>
+			<button class="re_button" onclick="logout();" style="margin:5px;">Sim</button>
+			<button class="re_button" onclick="closeModal();" style="margin:5px;">Não</button>
+		</div>
+	</div>
+
+	@* --------------------------------------------------- *@
+	@* ---------------### SIDE BAR ### ------------------- *@
+	@* --------------------------------------------------- *@
+
+	<div class="LP_DS_sidebar_menuBlue ocultar atendimento" style="background-color:#153562;">
+		<div class="offcanvas-header">
+		</div>
+		<div class="offcanvas-body" style="margin-top: -19rem;">
 
 
-           
-                <div class="dropdown d-flex flex-column justify-content-center align-items-center gap-4 w-100 " style="position:absolute; bottom:1.5rem; margin-left: 0.33rem">
-                
-                @if (true)
-                {
-                    <a href="~/Configuracoes" style="border: none; background-color: #f8f9fa;"> <img src="~/assets/icones/Config.png" width="22px" /> </a>
-                }
+			<div id="sidebarPacientePortal" class="SideBar" style="display:none;">
+				<ul class="navbar-nav justify-content-end flex-grow-2 pe-2 Re_li">
+					<li class="nav-item btn_a  " style="margin-left: 2rem;">
+						<a href="~/PacienteDados" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Meus dados</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/PacienteDebitos" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Meus Debitos</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/PacienteAgenda" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Minha agenda</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+				</ul>
+			</div>
 
-                <a href="#" class="d-flex align-items-center justify-content-center p-2 link-dark text-decoration-none LP_DS_sidebar_circle_name " id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+			<div id="sidebarGestaoFinanceira" class="SideBar" style="display:none;">
+				<ul class="navbar-nav justify-content-end flex-grow-2 pe-2 Re_li">
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/Dash" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Dash Atendimentos</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/Financeiro" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Dados Financeiros</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/UploadNF" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Upload Nota Fiscal</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+				</ul>
+			</div>
 
-                    </a>
-                    <ul class="dropdown-menu  text-small z-index-1" aria-labelledby="dropdownUser3">
-                        <div class="micro_header" style="background-color:#ededed; margin-top: -1rem; height: 1.75rem;">
-                            <h5 style="font-size: 0.75rem; padding-left: 0.6rem; cursor: default;">Empresa:  <br /></h5>
-                        </div>
-                        <div class="micro_header" style="background-color:#ededed; margin-top: -1rem; height: 1.75rem;">
-                            <h5 style="font-size: 0.75rem; padding-left: 0.6rem; cursor: default;">
-                          
-                            </h5>
-                        </div>
-                    @if (true)
-                         {
-                            <li><a class="dropdown-item" href="~/MinhaEquipe">Gerenciar Equipe</a></li>
-                            <div class="LP_M_border_fullwidth_default" style="margin:0.5rem 0rem; margin-top: -0.01rem"></div>
-                            <li><a class="dropdown-item" href="~/Transportadores">Ver suas Transportadoras</a></li>
-                         }
+			<div id="sidebarPacienteControl" class="SideBar" style="display:none;">
+				<ul class="navbar-nav justify-content-end flex-grow-2 pe-2 Re_li">
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/Paciente/NovoPaciente" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Novo Paciente</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/ListarPaciente" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Listar Pacientes</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/Agenda" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Agenda de Pacientes</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+					<li class="nav-item btn_a " style="margin-left: 2rem;">
+						<a href="~/ConfiguracoesAgenda" style="color:white;" class="nav-link-custom font-tamanho-sm active hv_ " aria-current="page" onclick="spinnerLupeon()">Configurar Agenda</a>
+						<div class="LP_M_border_fullwidth_default LP_DS_border_position_sidebar" style="margin:0.120rem 0rem;margin-top: 0.15rem; opacity:20%; border-color:#FFFFFF;"></div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 
-                        <div class="LP_M_border_fullwidth_default" style="margin-left: 1rem;"></div>
-                        <li><a class="dropdown-item" href="~/Logout">Sair</a></li>
-                    </ul>
-                </div>
-        </div>
-    </main>
+	<script>
+		function openModal() {
+			document.getElementById('logoutModal').style.display = 'block';
+		}
+
+		function closeModal() {
+			document.getElementById('logoutModal').style.display = 'none';
+		}
+
+		function abrirModal(modalId) {
+			// Oculta todos os modais
+			document.querySelectorAll('.Re_DS_sidebar_menuBlue').forEach(modal => {
+				modal.style.display = 'none';
+			});
+			// Exibe o modal selecionado
+			document.getElementById(modalId).style.display = 'block';
+		}
+	</script>
+	@*// ----------------------------------------------------------------------------------------------------------------------------*@
+	@* ---------------### LOGOUT   ### ------------------- *@
+	<script>
+		function openModal() {
+			document.getElementById('logoutModal').style.display = 'block';
+		}
+
+		function closeModal() {
+			document.getElementById('logoutModal').style.display = 'none';
+		}
+
+		function logout() {
+			localStorage.removeItem('userSession'); // Exemplo
+			sessionStorage.clear(); // Limpa todas as sessões
+
+			// Redirecionar para a rota Index do LoginController
+			window.location.href = '/Login/Index';
+		}
+	</script>
+@*//----------------------------------------------------------------------------------------------------------------------------
+ ---------------### Eventos de abertura e fechamento do sidebar da home.   ### ------------------- *@
+	<script>
+		function abrirSidebar(id) {
+			const sidebars = {
+				'sidebarPacienteControl': document.getElementById('sidebarPacienteControl'),
+				'sidebarGestaoFinanceira': document.getElementById('sidebarGestaoFinanceira'),
+				'sidebarPacientePortal': document.getElementById('sidebarPacientePortal')
+			};
+
+			// Fecha todas as sidebars antes de abrir a nova
+			for (const key in sidebars) {
+				if (sidebars[key]) {
+					sidebars[key].style.display = 'none'; // Esconde todas as sidebars
+				}
+			}
+
+			// Abre a sidebar específica
+			if (sidebars[id]) {
+				sidebars[id].style.display = 'block'; // Mostra a sidebar selecionada
+			}
+		}
+
+		function fecharSidebars() {
+			// Chama a função para fechar todas as sidebars
+			const sidebars = document.querySelectorAll('.SideBar');
+			sidebars.forEach(sidebar => {
+				sidebar.style.display = 'none';
+			});
+		}
+
+		// Adiciona eventos de clique aos botões
+		document.getElementById('openSidebarPaciente').onclick = function () { abrirSidebar('sidebarPacienteControl'); };
+		document.getElementById('openSidebarFinanceira').onclick = function () { abrirSidebar('sidebarGestaoFinanceira'); };
+		document.getElementById('openSidebarPortal').onclick = function () { abrirSidebar('sidebarPacientePortal'); };
+
+		// Adiciona o evento de clique ao documento
+		window.onclick = function (event) {
+			const sidebars = document.querySelectorAll('.SideBar');
+			const isClickInsideSidebar = Array.from(sidebars).some(sidebar => sidebar.contains(event.target));
+
+			if (!isClickInsideSidebar) {
+				fecharSidebars(); // Fecha todas as sidebars se o clique não for dentro delas
+			}
+		};
+
+		// Adiciona evento de teclado para fechar a sidebar ao pressionar a tecla Esc
+		document.addEventListener('keydown', function (event) {
+			if (event.key === 'Escape') {
+				fecharSidebars();
+			}
+		});
+	</script>
+
+
+
+
+
+
+
+
+
+
 </body>

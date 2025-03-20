@@ -1,0 +1,81 @@
+﻿.re_modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fica na tela */
+    z-index: 1000; /* Fica acima de outros elementos */
+    left: 0;
+    top: 0;
+    width: 100%; /* Largura total */
+    height: 100%; /* Altura total */
+    overflow: auto; /* Permite rolagem se necessário */
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro com transparência */
+}
+
+.re_button {
+    background-color: #4CAF50; /* Verde */
+    border: none; /* Sem borda */
+    color: white; /* Texto branco */
+    padding: 10px 20px; /* Espaçamento interno */
+    text-align: center; /* Centraliza o texto */
+    text-decoration: none; /* Remove o sublinhado */
+    display: inline-block; /* Permite definir dimensões */
+    font-size: 16px; /* Tamanho da fonte */
+    margin: 4px 2px; /* Margem ao redor */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    border-radius: 5px; /* Bordas arredondadas */
+    transition: background-color 0.3s; /* Transição suave */
+}
+
+    .re_button:hover {
+        background-color: #45a049; /* Cor ao passar o mouse */
+    }
+
+
+.Re_DS_sidebar_menuBlue {
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+    width: 16.7%;
+    position: fixed;
+    left: 3.6rem;
+    bottom: 0;
+    z-index: 999;
+    height: 95.7vh;
+    align-content: center;
+    text-align: center;
+    margin-left: -0.515rem;
+    box-shadow: 8px -8px 9px 0px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, #2ebf91, /* Verde azulado */
+    #836fff, /* Azul violeta */
+    #50c878, /* Verde esmeralda */
+    #7b68ee, /* Azul médio */
+    #1e90ff /* Azul brilhante */
+    );
+}
+
+.Re_li {
+    margin-bottom: 50px; /* Espaço abaixo do elemento */
+    font-family: 'Open Sans', sans-serif; /* Fonte Open Sans */
+    font-size: 15px; /* Tamanho da fonte */
+    color: white; /* Cor do texto branca */
+    text-decoration: none;
+
+}
+
+.nav-link-custom,
+.nav-link-custom:visited,
+.nav-link-custom:hover,
+.nav-link-custom:focus {
+    text-decoration: none !important;
+}
+
+.nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Linha branca com 20% de opacidade */
+    padding-bottom: 5px; /* Espaçamento entre a linha e o próximo item */
+    margin-bottom: 5px; /* Espaçamento geral entre os itens */
+}
+
+    /* Remove a borda do último item para não ter uma linha extra no final */
+    .nav-item:last-child {
+        border-bottom: none;
+    }
+
+

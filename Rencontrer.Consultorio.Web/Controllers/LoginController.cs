@@ -39,8 +39,8 @@ namespace Rencontrer.Consultorio.Web.Controllers
                         new Claim(ClaimTypes.NameIdentifier, autenticade.IdUsuario.ToString()),
                         new Claim(ClaimTypes.Name, autenticade.Nome),
                         new Claim("Token", autenticade.Email),
-                        new Claim("TipoAcesso", autenticade.Empresa),
-                        new Claim("EmpresaId", autenticade.Empresa)
+                        new Claim("TipoAcesso", autenticade.IdPerfilUsuario.ToString()),
+                        new Claim("EmpresaId", autenticade.EmpresaId.ToString())
                     };
 
                     // Criando a identidade e o principal

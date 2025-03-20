@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Application\" />
-    <Folder Include="wwwroot\assets\icones\" />
+    <Folder Include="wwwroot\assets\icones\iconesGif\" />
   </ItemGroup>
 
 </Project>

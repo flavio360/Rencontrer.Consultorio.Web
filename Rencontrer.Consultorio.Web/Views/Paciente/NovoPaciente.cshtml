@@ -1,0 +1,184 @@
+﻿@model List<Rencontrer.Consultorio.Web.Domain.Entities.PacienteViewModel>
+@{
+	ViewData["Title"] = "Novo Paciente";
+}
+
+
+
+<body id="body">
+	<form id="frmPost" asp-action="PostPaciente" asp-antiforgery="true" enctype="multipart/form-data">
+		<div class="wizard">
+			
+			<div class="page" id="page1">
+				<div class="mb-3 text-start">
+					<label class="form-label">Nome completo</label>
+					<input type="text" class="form-control" placeholder="Nome do paciente" required>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">Data de Nascimento</label>
+					<input type="date" class="form-control" placeholder="Data de nascimento" required>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">Sexo</label>
+					<select class="form-control form-control-sm font-tamanho-md form-select" id="sexo" name="sexo">
+						<option value="0">Selecione</option>
+						<option value="1">Masculino</option>
+						<option value="2">Feminino</option>
+						<option value="3">Não Binário</option>
+						<option value="4">Outro</option>
+					</select>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">Telefone</label>
+					<input type="tel" class="form-control" placeholder="(xx) xxxxx-xxxx" required>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">Endereço</label>
+					<input type="text" class="form-control" placeholder="Endereço" required>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">E-mail</label>
+					<input type="email" class="form-control" placeholder="E-mail" required>
+				</div>
+				<div class="mb-3 text-start">
+					<label class="form-label">Observações</label>
+					<textarea class="form-control" rows="3" placeholder="Informações adicionais"></textarea>
+				</div>
+
+				<div class="flex-container flex-container-buttons">
+					<div class="flex-item-btn-anterior"></div>
+					<div class="flex-item-btn-proximo">
+						<button onclick="nextPage()" type="button" class="btn btn-outline-primary btn-form-nextPage">
+							Próximo
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="page" id="page2">
+				<!-- Orientação Sexual -->
+				<div class="flex-container-inputs-2">
+					<p>Orientação Sexual:</p>
+					<select class="form-control form-control-sm font-tamanho-md form-select" id="orientacaoSexual" name="orientacaoSexual">
+						<option value="0">Selecione</option>
+						<option value="1">Heterossexual</option>
+						<option value="2">Homosexual</option>
+						<option value="3">Bissexual</option>
+						<option value="4">Assexual</option>
+						<option value="5">Pansexual</option>
+						<option value="6">Queer</option>
+						<option value="7">Outro</option>
+						<option value="8">Não informado</option>
+					</select>
+				</div>
+
+				<!-- Histórico de Psicoterapia -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Já fez terapia anteriormente?</label>
+					<select class="form-control form-control-sm font-tamanho-md form-select" id="fezTerapia" name="fezTerapia">
+						<option value="0">Selecione</option>
+						<option value="1">Sim</option>
+						<option value="2">Não</option>
+					</select>
+				</div>
+
+				<!-- Histórico de doenças psicológicas -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Possui histórico de doenças psicológicas?</label>
+					<input type="text" class="form-control" placeholder="Especifique as doenças (se houver)">
+				</div>
+
+				<!-- Objetivos da Terapia -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Objetivos para a terapia</label>
+					<textarea class="form-control" rows="3" placeholder="O que espera alcançar com a terapia"></textarea>
+				</div>
+
+				<div class="flex-container flex-container-buttons">
+					<div class="flex-item-btn-anterior">
+						<button onclick="prevPage()" type="button" class="btn btn-outline-primary btn-form-prevPage">
+							Anterior
+						</button>
+					</div>
+					<div class="flex-item-btn-proximo">
+						<button onclick="nextPage()" type="button" class="btn btn-outline-primary btn-form-nextPage">
+							Próximo
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="page" id="page3">
+				<!-- Condições de Saúde -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Condições de saúde atuais</label>
+					<input type="text" class="form-control" placeholder="Exemplo: Doenças crônicas, alergias, etc.">
+				</div>
+
+				<!-- Medicamentos em uso -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Medicamentos em uso</label>
+					<input type="text" class="form-control" placeholder="Especifique os medicamentos em uso">
+				</div>
+
+				<!-- Histórico familiar de doenças psicológicas -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Histórico familiar de doenças psicológicas</label>
+					<input type="text" class="form-control" placeholder="Especifique doenças psicológicas na família">
+				</div>
+
+				<!-- Histórico de traumas ou eventos significativos -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Traumas ou eventos significativos</label>
+					<textarea class="form-control" rows="3" placeholder="Descreva experiências traumáticas, perdas, mudanças significativas"></textarea>
+				</div>
+
+				<div class="flex-container flex-container-buttons">
+					<div class="flex-item-btn-anterior">
+						<button onclick="prevPage()" type="button" class="btn btn-outline-primary btn-form-prevPage">
+							Anterior
+						</button>
+					</div>
+					<div class="flex-item-btn-proximo">
+						<button onclick="nextPage()" type="button" class="btn btn-outline-primary btn-form-nextPage">
+							Próximo
+						</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="page" id="page4">
+				<!-- Relações interpessoais -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Relacionamentos interpessoais</label>
+					<input type="text" class="form-control" placeholder="Como são os relacionamentos com família, amigos, colegas?">
+				</div>
+
+				<!-- Observações finais -->
+				<div class="mb-3 text-start">
+					<label class="form-label">Observações adicionais</label>
+					<textarea class="form-control" rows="3" placeholder="Observações importantes para o atendimento terapêutico"></textarea>
+				</div>
+
+				<div class="flex-container flex-container-buttons">
+					<div class="flex-item-btn-anterior">
+						<button onclick="prevPage()" type="button" class="btn btn-outline-primary btn-form-prevPage">
+							Anterior
+						</button>
+					</div>
+					<div class="flex-item-btn-finalizar">
+						<button type="submit" class="btn btn-outline-primary btn-form-submit">
+							Finalizar Cadastro
+						</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</form>
+</body>
+
+
+
+
+

@@ -1,0 +1,30 @@
+﻿@using System.Security.Claims;
+
+@{
+var isAuthenticated = User.Identity.IsAuthenticated;
+
+string userId = null;
+string nome = null;
+string token = null;
+string tipoAcesso = null;
+string empresaId = null;
+
+if (isAuthenticated)
+{
+    // Acessando as claims
+    userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+    nome = User.FindFirst(ClaimTypes.Name)?.Value;
+    token = User.FindFirst("Token")?.Value;
+    tipoAcesso = User.FindFirst("TipoAcesso")?.Value;
+    empresaId = User.FindFirst("EmpresaId")?.Value;
+}
+
+
+    <body>
+        <main>
+
+
+
+        </main>
+    </body>
+}

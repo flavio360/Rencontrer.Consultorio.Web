@@ -37,6 +37,7 @@ function autenticar() {
         Senha: password
     };
 
+    
     // Enviando os dados via POST
     $.ajax({
         type: "POST",

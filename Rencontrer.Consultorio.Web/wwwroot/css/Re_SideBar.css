@@ -1,0 +1,27 @@
+﻿
+
+.SideBar {
+    border-start-end-radius: 8px;
+    border-end-end-radius: 8px;
+    width: 16.7%;
+    position: fixed;
+    left: 3.6rem;
+    bottom: 0;
+    z-index: 999;
+    height: 95.7vh;
+    align-content: center;
+    text-align: center;
+    margin-left: -0.515rem;
+    box-shadow: 8px -8px 9px 0px rgba(0,0,0,0.08);
+    background: linear-gradient(135deg, #2ebf91, #836fff, #50c878, #7b68ee, #1e90ff);
+    font-family: "Quicksand", sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    /* Para garantir que o conteúdo não fique cortado, ajusta o overflow */
+    overflow: auto;
+}
+
+/* Responsividade para telas pequenas (ex: celulares) */
+@media screen and (max-width: 767px) {
+    .SideBar {
+        width: 100%; /* Torna a barra lateral 100

@@ -8,6 +8,7 @@
 @model LoginRequestViewModel
 
 <script src="~/js/Login.js"></script>
+<script src="~/js/Spinner.js"></script>
 <link rel="stylesheet" href="/css/Re_Login.css">
 
 <head>
@@ -89,7 +90,7 @@
 
         <footer>
             @*<button class="btn_login_entrar" name="btnLogin" id="btnLogin" value="login">Entrar</button>*@
-            <button class="btn_login_entrar" name="btnLogin" id="btnLogin" value="login">Entrar</button>
+            <button class="btn_login_entrar" name="btnLogin" id="btnLogin" value="login" type="button" onclick="Spinner()">Entrar</button>
         </footer>
     </form>
 
@@ -130,5 +131,23 @@
             eyesOpen.classList.add('ocultar');
             eyesClosed.classList.remove('ocultar');
         }
+    }
+</script>
+
+<div id="spinner" style="display: none;">
+    <img src="/assets/animacoes/ampulheta.gif" alt="Carregando...">
+</div>
+
+<script>
+    function Spinner() {
+        // Exibe o spinner
+        document.getElementById('spinner').style.display = 'block';
+
+        // Aqui você pode adicionar a lógica para o login ou outra ação
+        // Exemplo: simular um atraso de 2 segundos antes de ocultar o spinner
+        setTimeout(function () {
+            document.getElementById('spinner').style.display = 'none';
+            // Aqui você pode redirecionar ou realizar outra ação após o login
+        });
     }
 </script>
